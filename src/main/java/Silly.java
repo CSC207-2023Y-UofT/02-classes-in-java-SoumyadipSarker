@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * This file contains a few exercises to familiarize you with specific
@@ -72,7 +73,7 @@ public class Silly implements Comparable<Silly>{
         this.name = "Silly #" + number;
     }
 
-    /**
+     /**
      * TODO (Task 1): Create another constructor that takes in TWO parameters,
      *       both of which are strings.
      *       Afterwards, set this.name to the concatenation of both
@@ -80,6 +81,18 @@ public class Silly implements Comparable<Silly>{
      *       Make sure you document this method!
      */
 
+    /**
+     * Creates a new Silly object.
+     * This constructor takes in two String parameters and sets
+     * the attribute name to the concatenation of both strings.
+     *
+     * @param name a name for this Silly instance.
+     * @param address an address for this Silly instance's name.
+     */
+    public Silly(String name, String address) {
+
+        this.name = name + address;
+    }
 
 
 
@@ -116,8 +129,9 @@ public class Silly implements Comparable<Silly>{
         y.countStatic();
         x.countStatic();
         x.countStatic();
-        int[] expected_values = {};
+        int[] expected_values = {0, 1, 2, 3};
 
+        // Array.tostring converts the array of integers to string
         System.out.println("The countStatic calls will return " + Arrays.toString(expected_values));
     }
 
@@ -131,9 +145,11 @@ public class Silly implements Comparable<Silly>{
      *
      * @return the name of this Silly.
      */
+    // this is important for overriding the existing tostring method.
     @Override
     public String toString(){
         // TODO (Task 3): Implement the body of this method!
+        return this.name;
     }
 
     /**
@@ -156,8 +172,14 @@ public class Silly implements Comparable<Silly>{
         if (!(o instanceof Silly)){
             return false;
         }
+        else {
+            String s1 = ((Silly) o).name;
+            String s2 = this.name;
+            return Objects.equals((String) s1, (String) s2);
+        }
 
-        Silly other = (Silly) o; // To access .name of o, we need to cast it.
+
+        // Silly other = (Silly) o; // To access .name of o, we need to cast it.
 
         // Hint: to compare strings, we need to use .equals()
         //       e.g. s1.equals(s2)
@@ -194,6 +216,15 @@ public class Silly implements Comparable<Silly>{
          *                You can get the length of a string by using the
          *                .length() method.
          */
+        if (this.name.length() == other.name.length()) {
+            return 0;
+        }
+        else if (this.name.length() > other.name.length()) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
     }
 
     /*
